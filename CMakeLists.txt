@@ -27,7 +27,6 @@ if(    NOT cmake_build_type_tolower STREQUAL "debug"
   message(FATAL_ERROR "Unknown build type \"${CMAKE_BUILD_TYPE}\". Allowed values are Debug, Release, RelWithDebInfo (case-insensitive).")
 endif()
 
-
 #############################################################################
 # retrieve version information                                               #
 #############################################################################
@@ -458,27 +457,27 @@ endif()
 
 add_subdirectory(Eigen)
 
-add_subdirectory(doc EXCLUDE_FROM_ALL)
+# add_subdirectory(doc EXCLUDE_FROM_ALL)
 
 option(BUILD_TESTING "Enable creation of Eigen tests." ON)
 if(BUILD_TESTING)
   include(EigenConfigureTesting)
 
   if(EIGEN_LEAVE_TEST_IN_ALL_TARGET)
-    add_subdirectory(test) # can't do EXCLUDE_FROM_ALL here, breaks CTest
+    # add_subdirectory(test) # can't do EXCLUDE_FROM_ALL here, breaks CTest
   else()
-    add_subdirectory(test EXCLUDE_FROM_ALL)
+    # add_subdirectory(test EXCLUDE_FROM_ALL)
   endif()
 
-  add_subdirectory(failtest)
+  # add_subdirectory(failtest)
 endif()
 
 if(EIGEN_LEAVE_TEST_IN_ALL_TARGET)
-  add_subdirectory(blas)
-  add_subdirectory(lapack)
+  # add_subdirectory(blas)
+  # add_subdirectory(lapack)
 else()
-  add_subdirectory(blas EXCLUDE_FROM_ALL)
-  add_subdirectory(lapack EXCLUDE_FROM_ALL)
+  # add_subdirectory(blas EXCLUDE_FROM_ALL)
+  # add_subdirectory(lapack EXCLUDE_FROM_ALL)
 endif()
 
 # add SYCL
@@ -495,20 +494,20 @@ if(EIGEN_TEST_SYCL)
   endif(EIGEN_SYCL_TRISYCL)
 endif(EIGEN_TEST_SYCL)
 
-add_subdirectory(unsupported)
+# add_subdirectory(unsupported)
 
-add_subdirectory(demos EXCLUDE_FROM_ALL)
+# add_subdirectory(demos EXCLUDE_FROM_ALL)
 
 # must be after test and unsupported, for configuring buildtests.in
-add_subdirectory(scripts EXCLUDE_FROM_ALL)
+# add_subdirectory(scripts EXCLUDE_FROM_ALL)
 
 # TODO: consider also replacing EIGEN_BUILD_BTL by a custom target "make btl"?
 if(EIGEN_BUILD_BTL)
-  add_subdirectory(bench/btl EXCLUDE_FROM_ALL)
+  # add_subdirectory(bench/btl EXCLUDE_FROM_ALL)
 endif(EIGEN_BUILD_BTL)
 
 if(NOT WIN32)
-  add_subdirectory(bench/spbench EXCLUDE_FROM_ALL)
+  # add_subdirectory(bench/spbench EXCLUDE_FROM_ALL)
 endif(NOT WIN32)
 
 configure_file(scripts/cdashtesting.cmake.in cdashtesting.cmake @ONLY)
@@ -643,5 +642,5 @@ install ( FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/UseEigen3.cmake
           DESTINATION ${CMAKEPACKAGE_INSTALL_DIR} )
 
 # Add uninstall target
-add_custom_target ( uninstall
+add_custom_target ( uninstall_eigen
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/EigenUninstall.cmake)
